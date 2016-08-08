@@ -1,0 +1,74 @@
+---
+title: "Ggplot_Notes"
+author: "Ajay Kumar"
+date: "August 8, 2016"
+output: html_document
+---
+
+The matrial in this section is covered online 
+Refer the `ggplot2` documentation. I have also
+referred to Hadley Wickham's book on `ggplot2`
+
+# Building scatterplots
+
+Below is a plot of the displacement vs the 
+highway mpg variable coloured by a third variable
+cylinder. There are many methods of making this plot.
+
+ 1. With `qplot`
+
+```{r Qplot}
+library(ggplot2)
+library(scales)
+library(grid)
+library(gridExtra)
+
+p <- qplot(disp, hwy, data = mpg, 
+        colour = as.factor(cyl))
+
+```
+
+  2. With `ggplot`
+  
+```{r ggplot}
+
+p <- ggplot(data = mpg, aes(x = displ, y = hwy,
+                      colour = as.factor(cyl))) + geom_point()
+p + scale_color_hue("Cylinder")
+```
+  
+  
+## Behind a scatterplot
+
+We map the X and Y co-ordinates. In addition
+every point has a size, colour and a shape. 
+These are called `aesthetics`. We map aesthetics
+to data.  
+
+A scatterplot is represented by a `geom` called
+`point()`. Other kinds of `geoms` can be used
+to display suitable plots.
+
+The data needs to be converted from it's original
+units to things that a computer can understand. 
+We need to provide a mapping to pixels which 
+can be read by a computer. 
+
+# Building Multiple Time Series
+
+The technique explains how to compare multiple
+time series correctly. 
+The data used is the economics dataset.
+
+```{r Time_Series}
+library(reshape2)
+emp <- melt(data = economics, id = "date",
+            measure.vars  = c("unemploy", "uempmed"))
+
+qplot(date, value, data = emp, geom = "line") +
+  facet_grid(variable ~., scales = "free_y")
+
+```
+
+
+
