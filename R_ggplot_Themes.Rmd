@@ -1,0 +1,101 @@
+---
+title: "Ggplot_Themes"
+author: "Ajay Kumar"
+date: "August 22, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# An introduction to Themes
+
+ - The appearance of non-data elements is
+ controlled by themes.
+ 
+ - Themes give you control over 
+   - Fonts in all parts of the plot.
+   - Title
+   - Axis tick labels
+   - Axis labels
+   - Strip labels
+   - Legend key  labels
+   - Background
+
+  `Ggplot` takes a different approach to building graphs
+  compared to base and lattice graphics.
+  - When creating the plot, one can determine how to display the    data 
+  - After creating the plot one can edit every detail of      
+  rendering it using the `theming` system.
+  
+# Built in Themes
+
+`ggplot2` has 2 built-in themes. The default *`theme_grey()`*
+uses a light grey background with white gridlines. The second
+theme *`theme_bw()`* has a traditional white background
+and dark grey gridlines. Themes can be applied in
+two ways.
+ - Using the `theme_set()` function globally
+ - Or using the above function inside an individual plot 
+   function.
+   
+# Theme elements and element functions
+
+There are four types of built in element 
+functions
+
+ - Text:
+ 
+ *`element_text()`* draws labels and headings.
+ Some examples are shown below
+ 
+```{r Theme_text}
+
+library(ggplot2)
+library(grid)
+library(gridExtra)
+# get the mpg variable from the mtcars dataset
+mpg <- mtcars$mpg
+m <- length(mpg)
+# draw histogram of mpg variable from mtcars data
+splot <- qplot(x = 1:m, y = mpg, 
+               geom = "point", colour = I("red"),
+               xlab = "Obs number", ylab = "Mpg")
+
+splot2 <- splot + ggtitle("Title") + 
+              theme(plot.title = element_text(size = 15))
+
+splot3 <- splot + ggtitle("New Title") +
+            theme(plot.title = element_text(size = 15, 
+                  colour = "red"))
+
+splot4 <- splot + ggtitle("Newer Title") +
+            theme(plot.title = element_text(size = 15, 
+                  hjust = 1))
+
+splot5 <- splot + ggtitle("Another Title") +
+         theme(plot.title = element_text(size = 15,
+                  face = "italic"))
+
+splot6 <- splot + ggtitle("Last Title") + 
+  theme(plot.title = element_text(size = 15,
+        angle = 180))
+
+grid.arrange(splot, splot2, splot3,
+             splot4, splot5, splot6, nrow = 3,
+             ncol = 2)
+
+```
+ 
+ - Lines and Segments
+ - Rectangles
+ - Blanks
+ 
+Code snippets will soon be uploaded. 
+  
+  
+  
+  
+  
+  
